@@ -1,0 +1,45 @@
+// When powered on, the Mind Stone continuously
+// executes instructions given to it.
+// Instructions must be scribed in Stonescript.
+// Learn more at:
+// StoneStoryRPG.com/stonescript
+// -Bezerra, the Sage
+
+var utils = import utils
+
+?hp < 7
+  activate potion
+?loc = temple
+  ?foe = cult sorcerer
+    equip repeating
+  :?foe.distance >= 10
+    utils.healwalk()
+  :
+    equipL ice sword
+    equipR ice shield
+?loc = nagaraja
+  equipL ice sword
+  equipR ice shield
+
+
+?loc = deadwood
+  ?foe = huge mosquito
+    equipR fire talisman
+    activate cinderwisp
+    equip repeating
+  :?foe = stone scarab
+    equipL poison hammer
+    equipR poison shield
+  :?foe = boss 
+    utils.cinderwisp()
+  :?harvest.distance < 10
+    // Cut down trees with the hatchet
+    // using the fast-cutting when available
+    equip hatchet
+    ?harvest.distance <= 4
+    ^& item.GetCooldown(＂hatchet＂) <= 0
+      activate R
+  :
+    utils.healwalk()
+
+
